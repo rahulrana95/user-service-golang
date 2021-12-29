@@ -31,7 +31,12 @@ func main() {
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
-	log.Fatal(s.ListenAndServe())
+
+	var httpServerError = s.ListenAndServe()
+
+	if httpServerError != nil {
+		log.Fatalf("Failed to start http server.")
+	}
 
 	ser := grpc.NewServer()
 
